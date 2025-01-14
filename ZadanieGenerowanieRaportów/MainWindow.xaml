@@ -1,0 +1,53 @@
+﻿<Window x:Class="ZadanieGenerowanieRaportow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Raporty" Height="500" Width="800">
+    <Grid>
+        <TabControl>
+            <!-- Tworzenie raportu -->
+            <TabItem Header="Tworzenie raportu">
+                <StackPanel Margin="10">
+                    <!-- Pole tytułu raportu -->
+                    <TextBox x:Name="TitleTextBox" Margin="0,0,0,10" Height="30">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter Property="Text" Value="Wprowadź tytuł raportu"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Text" Value=""/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <!-- Wybór daty raportu -->
+                    <DatePicker x:Name="ReportDatePicker" Margin="0,0,0,10"/>
+
+                    <!-- Tabela elementów raportu -->
+                    <DataGrid x:Name="ItemsDataGrid" AutoGenerateColumns="False" Height="200" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Szczegóły" Binding="{Binding Details}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Przyciski akcji -->
+                    <Button Content="Podgląd raportu" Click="PreviewReport_Click" Height="40" Margin="0,0,0,10"/>
+                    <Button Content="Zapisz raport" Click="SaveReport_Click" Height="40"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Lista zapisanych raportów -->
+            <TabItem Header="Lista raportów">
+                <StackPanel Margin="10">
+                    <ListView x:Name="SavedReportsListView" Height="300" Margin="0,0,0,10" DisplayMemberPath="Title"/>
+                    <Button Content="Otwórz raport" Click="OpenReport_Click" Height="40" Margin="0,0,0,10"/>
+                    <Button Content="Eksportuj do PDF" Click="ExportToPdf_Click" Height="40"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
